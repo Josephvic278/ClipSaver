@@ -33,7 +33,6 @@ def download_yt():
             mp4files = {f.itag:{"title":f.title, "file_type":f.type,'file_extension':f.subtype, 'res':f.resolution, "filesize":get_size_format(f.filesize), 'download_link':f.url} for f in mp4files}
             audio = yt.streams.filter(only_audio=True)
             audio= {f.itag:{"title":f.title, "file_type":f.type,'bitrate':f.abr, 'file_extension':f.subtype, "filesize":get_size_format(f.filesize), 'download_link':f.url} for f in audio}
-            print(f"{audio=}")
             return jsonify({'audio':audio, 'video':mp4files})
         else:
             return jsonify({'message':'Invalid request'})
