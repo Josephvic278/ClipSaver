@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page title</title>
-</head>
-<body>
-    
-    <form action="{{url_for('download_yt')}}" action="POST">        
-        <h1>Download</h1>
-        <input type="text" name="link" placeholder="Enter your YouTube link">
-         <a href=' download' target='_blank'>Download</a>
+<html>
+  <body>
+    <form action="http://localhost:5000/download_yt" method="POST">
+      <label for="link">YouTube Link:</label>
+      <input type="text" id="link" name="link">
+
+      <input type="submit" value="Submit">
     </form>
-    
-</body>
+  </body>
 </html>

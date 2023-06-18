@@ -1,0 +1,23 @@
+{% if data %}
+  <h2>Videos:</h2>
+  {% for video in data.video.values() %}
+    <h3>{{ video.title }}</h3>
+    <p>Resolution: {{ video.res }}</p>
+    <p>File Type: {{ video.file_type }}</p>
+    <p>File Extension: {{ video.file_extension }}</p>
+    <p>Filesize: {{ video.filesize }}</p>
+    <p>Download Link: <a href="{{ video.download_link }}">Click here</a></p>
+  {% endfor %}
+
+  <h2>Audios:</h2>
+  {% for audio in data.audio.values() %}
+    <h3>{{ audio.title }}</h3>
+    <p>Bitrate: {{ audio.bitrate }}</p>
+    <p>File Type: {{ audio.file_type }}</p>
+    <p>File Extension: {{ audio.file_extension }}</p>
+    <p>Filesize: {{ audio.filesize }}</p>
+    <p>Download Link: <a href="{{ audio.download_link }}">Click here</a></p>
+  {% endfor %}
+{% else %}
+  <p>No data available.</p>
+{% endif %}
