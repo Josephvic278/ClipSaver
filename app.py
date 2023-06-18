@@ -30,10 +30,8 @@ def download_yt():
     if request.method=='POST':
         link = request.form.get('link', False)
         link = is_yt(link)
-        print(link)
         if link:
             yt = pytube.YouTube(link)
-            print(session.items())
             video = yt.streams.filter(progressive=True, file_extension="mp4")
             audio = yt.streams.filter(only_audio=True)
             video = {f.itag:{"title":f.title, "file_type":f.type,'file_extension':f.subtype, 'res':f.resolution, "filesize":get_size_format(f.filesize), 'download_link':f.url} for f in video}
@@ -41,12 +39,10 @@ def download_yt():
             session['audio'] = audio
             session['video'] =video
             session['status']=True
-            print(session.items())
             return redirect(url_for('result'))
         else:
             session['status'] =  False
             return jsonify({'message':'Invalid request'})
-    print(session.items())
     return render_template("home.html")
     
 @app.route('/result')
