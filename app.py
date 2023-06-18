@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, url_for, redirect, session
+from flask import Flask, request, jsonify, url_for, redirect, session, render_template
 import pytube, requests, secrets
 
 from flask_sqlalchemy import SQLAlchemy
@@ -18,7 +18,7 @@ migrate = Migrate(app, db)
 # ROUTES
 @app.route('/')
 def index():
-    return "<h1> Hello </h1>"
+    return render_template("main.html")
 
 @app.route('/download_yt', methods=['POST', 'GET'])
 def download_yt():
@@ -36,7 +36,7 @@ def download_yt():
             return jsonify({'audio':audio, 'video':mp4files})
         else:
             return jsonify({'message':'Invalid request'})
-    return "<h1>Download</h1> <a href=' download' target='_blank'>Download</a>"
+    return render_template("home.html")
     
 
 
