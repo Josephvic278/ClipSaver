@@ -1,9 +1,10 @@
 from flask import Flask, request, jsonify, url_for, redirect, session, render_template
 import pytube, requests, secrets
 
-from flask_session import Session
+# from flask_migrate import Migrate
+# from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+
 
 app = Flask('ClipSaver')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -13,9 +14,8 @@ db = SQLAlchemy(app)
 
 app.config['SESSION_TYPE'] = 'sqlalchemy'
 app.config['SESSION_SQLALCHEMY'] = db
-migrate = Migrate(app, db)
-Session(app)
-
+# migrate = Migrate(app, db)
+# Session(app)
 
 
 
@@ -30,26 +30,29 @@ def download_yt():
     if request.method=='POST':
         link = request.form.get('link', False)
         link = is_yt(link)
+
         if link:
             yt = pytube.YouTube(link)
-            video = yt.streams.filter(progressive=True, file_extension="mp4")
-            audio = yt.streams.filter(only_audio=True)
+            video = yt.streams.filter(progressive=True)
+            audio = yt.streams.filter(adaptive=True)
             video = {f.itag:{"title":f.title, "file_type":f.type,'file_extension':f.subtype, 'res':f.resolution, "filesize":get_size_format(f.filesize), 'download_link':f.url} for f in video}
-            audio= {f.itag:{"title":f.title, "file_type":f.type,'bitrate':f.abr, 'file_extension':f.subtype, "filesize":get_size_format(f.filesize), 'download_link':f.url} for f in audio}
+            audio= {f.itag:{"title":f.title, "file_type":f.type+' (No Video)' if not f.abr else f.type+' (No Audio','bitrate':f.abr, 'file_extension':f.subtype, "filesize":get_size_format(f.filesize), 'download_link':f.url} for f in audio}
             session['audio'] = audio
             session['video'] =video
             session['status']=True
+            print(session['status'])
             return redirect(url_for('result'))
         else:
             session['status'] =  False
             return jsonify({'message':'Invalid request'})
     return render_template("home.html")
-    
+
+@app.route('/download_yt_list')
+
 @app.route('/result')
 def result():
     if session.get('status',None):
         audio,video = session.get('audio', None), session.get('video', None)
-        session.clear()
         return render_template('result.html', data={'audio':audio, 'video':video})
     else:
         return render_template('result.html', data=None)
