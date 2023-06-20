@@ -1,4 +1,4 @@
-<!-- {% if data %}
+{% if data.video or data.audio %}
   <h2>Videos:</h2>
   {% for video in data.video.values() %}
     <h3>{{ video.title }}</h3>
@@ -18,59 +18,8 @@
     <p>Filesize: {{ audio.filesize }}</p>
     <p>Download Link: <a href="{{ audio.download_link }}">Click here</a></p>
   {% endfor %}
+{% elif data.error %}
+  <p>Error: {{ data.error }}</p>
 {% else %}
   <p>No data available.</p>
-{% endif %} -->
-{% extends "bootstrap/base.html" %}
-
-{% block content %}
-  <div class="container">
-    {% if data %}
-      <div class="row">
-        <div class="col">
-          <h2>Videos</h2>
-          {% for video in data.video.values() %}
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">{{ video.title }}</h5>
-                <p class="card-text">Resolution: {{ video.res }}</p>
-                <p class="card-text">File Type: {{ video.file_type }}</p>
-                <p class="card-text">File Extension: {{ video.file_extension }}</p>
-                <p class="card-text">Filesize: {{ video.filesize }}</p>
-                <p class="card-text">
-                  <a title= "{{ video.title+'.'+video.file_extension }}" href="{{ video.download_link }}" download="{{ video.title+'.'+video.file_extension}}" data-quality="{{ video.bitrate}}" data-type="{{ video.file_type}}" class="btn btn-primary">Download</a>
-                </p>
-              </div>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-      <div class="row mt-4">
-        <div class="col">
-          <h3>Audio</h3>
-          <div class="card">
-            {% for audio in data.audio.values() %}
-              <div class="card-body">
-                <h5 class="card-title">{{ audio.title }}</h5>
-                <p class="card-text">Bitrate: {{ audio.bitrate }}</p>
-                <p class="card-text">File Type: {{ audio.file_type }}</p>
-                <p class="card-text">File Extension: {{ audio.file_extension }}</p>
-                <p class="card-text">Filesize: {{ audio.filesize }}</p>
-                <div class="link-box">
-                  <div class="def-btn-box">
-                    <a title= "{{ audio.title+'.'+audio.file_extension }}" href="{{ audio.download_link }}" download="{{ audio.title+'.'+audio.file_extension}}" data-quality="{{ audio.bitrate}}" data-type="{{ audio.file_type}}" class="btn btn-primary">Download</a>
-                  </div>
-                </div>
-              </div>
-            {% endfor %}
-          </div>
-      </div>
-    {% else %}
-      <div class="row">
-        <div class="col">
-          <p>No data available.</p>
-        </div>
-      </div>
-    {% endif %}
-  </div>
-{% endblock %}
+{% endif %}
