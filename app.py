@@ -34,11 +34,11 @@ def download_yt():
         if link:
             try:
                 yt = pytube.YouTube(link)
-                
+                thumb = yt.thumbnail_url
                 video = yt.streams.filter(progressive=True)
                 audio = yt.streams.filter(adaptive=True)
-                video = {f.itag:{"title":f.title, "file_type":f.type,'file_extension':f.subtype, 'res':f.resolution, "filesize":get_size_format(f.filesize), 'download_link':f.url} for f in video}
-                audio= {f.itag:{"title":f.title, "file_type":f.type+' (No Audio)' if not f.abr else f.type+' (No Video)','bitrate':f.abr, 'file_extension':f.subtype, "filesize":get_size_format(f.filesize), 'download_link':f.url} for f in audio}
+                video = {f.itag:{"title":f.title,'img':thumb, "file_type":f.type,'file_extension':f.subtype, 'res':f.resolution, "filesize":get_size_format(f.filesize), 'download_link':f.url} for f in video}
+                audio= {f.itag:{"title":f.title, 'img':thumb,"file_type":f.type+' (No Audio)' if not f.abr else f.type+' (No Video)','bitrate':f.abr, 'file_extension':f.subtype, "filesize":get_size_format(f.filesize), 'download_link':f.url} for f in audio}
                 session['audio'] = audio
                 session['video'] =video
                 session['status']='success'
