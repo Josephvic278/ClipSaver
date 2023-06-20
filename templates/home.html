@@ -1,10 +1,43 @@
-<html>
-  <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page title</title>
+    <link rel="stylesheet" href="/static/home.css">
+</head>
+<body>
+    <div class="top_bar">
+        <div class="logo">
+            <img src="/static/Clip_saver_logo.png" alt=""></img>
+        </div>
+        
+        <div class="menu">
+            <img src="/static/menu.png" alt=""></img>
+        </div>
+    </div>
+    
+    <div class="body_sector">
+    <div class="header_text">
+        <h1>Download <b class="yt_text">YouTube</b> videos here</h1>        
+    </div>
     <form action="http://localhost:5000/download_yt" method="POST">
-      <label for="link">YouTube Link:</label>
-      <input type="text" id="link" name="link">
-
-      <input type="submit" value="Submit">
+      <div class="yt_link_input">
+          <input type="text" id="link" name="link" class="link_input" placeholder="Past YouTube video link">
+                    
+          <br>
+      
+      </div>
+      
+      <div class="post_btn">
+              <img src="/static/paste.png" alt=""></img>
+          </div>
+      
+      <div class="submit_button">
+          <input type="submit" value="Download" class="sub_btn">
+      </div>      
+      
     </form>
-  </body>
+    </div>
+</body>
 </html>

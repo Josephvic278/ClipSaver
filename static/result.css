@@ -1,0 +1,31 @@
+.top_details_bg{
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+.top_details{
+    display: flex;
+    width: 90%;
+    border-radius: 10px;
+    background: white;
+}
+.top_details img{
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+.top_details h2{
+    font-family: Calibri;
+    font-size: 15px;
+    font-weight: 400;
+    margin-top: 30px;
+}
+.vid_length{
+    margin-top: 10px;
+}
+.vid_length p{
+    font-weight: 600;
+}

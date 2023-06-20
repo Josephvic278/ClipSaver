@@ -1,0 +1,98 @@
+*{
+    box-sizing: border-box;
+}
+body {
+    padding: 0;
+    margin: 0;
+    background: rgba(0,255,0,0.06);
+}
+.header_text{
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.header_text h1{
+    font-family: Arial;
+    font-size: 30px;
+    text-align: center;
+}
+.top_bar{
+    height: 8ex;
+    top: 0;
+    width: 100%;
+    position: fixed;
+    background: white;
+}
+.logo{
+    margin: 5px;
+    float: left;    
+}
+.logo img{
+    width: 150px;
+}
+.yt_link_input{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 100%;
+}
+.yt_link_input .link_input {
+    width: 85%;
+    height: 60px;
+    outline: none;
+    text-indent: 10px;
+    border-radius: 5px;
+    border: 2px solid rgba(0,255,0,0.2);
+}
+.link_input::placeholder{
+    text-indent: 10px;
+}
+.body_sector{
+    margin-top: 90px;
+}
+.yt_text{
+    color: rgb(0,255,0);
+}
+.submit_button{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 100%;
+    margin-top: 15px;
+}
+.sub_btn{
+    width: 85%;
+    border: none;
+    height: 50px;
+    font-family: Calibri;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 500;
+    background: rgb(0,255,0);
+}
+.post_btn{
+    float: right;
+    margin-top: -58px;
+    margin-right: 8%;
+    z-index: 1;
+    background: white;
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+    height: 56px;
+    width: 52px;
+    justify-content: center;
+    align-items: center;
+    display: flex; 
+    position: relative;
+}
+.post_btn img{
+    width: 30px;
+}
+.menu{
+    float: right;
+    margin: 8px;
+}
+.menu img{
+    width: 50px;
+}

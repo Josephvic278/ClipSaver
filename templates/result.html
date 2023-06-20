@@ -1,12 +1,57 @@
-{% if data.video or data.audio %}
-  <h2>Videos:</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page title</title>
+    <link rel="stylesheet" href="/static/home.css">
+    <link rel="stylesheet" href="/static/result.css">
+</head>
+<body>
+    <div class="top_bar">
+        <div class="logo">
+            <img src="/static/Clip_saver_logo.png" alt=""></img>
+        </div>
+        
+        <div class="menu">
+            <img src="/static/menu.png" alt=""></img>
+        </div>
+    </div>
+   
+   <div class="body_sector">
+    {% if data.video or data.audio %}
+  
+  {% set title_dict = [] %}
+  {% set image_dict = [] %}
+  {% set vid_id = 0 %}
+  {% for video_values in data.video.values() %}
+      {% set _= title_dict.append(video_values.title) %}
+      {% set _= image_dict.append(video_values.img) %}
+  {% endfor %}
+  
+  <div class="header_text">
+        <h1>Download <b class="yt_text">YouTube</b> videos here</h1>        
+    </div>
+  
+  <div class="top_details_bg">
+      <div class="top_details">
+          <img src="{{image_dict[0]}}" alt=""></img>
+          <h2>{{title_dict[0]}}
+          <br>
+          <div class="vid_length">
+              <p>1:00</p>              
+          </div>
+          </h2>
+      </div>
+  </div>
+  
   {% for video in data.video.values() %}
     <h3>{{ video.title }}</h3>
     <p>Resolution: {{ video.res }}</p>
     <p>File Type: {{ video.file_type }}</p>
     <p>File Extension: {{ video.file_extension }}</p>
     <p>Filesize: {{ video.filesize }}</p>
-    <img src="{{ video.img }}" alt="Video Thumbnail">
+    <img src="{{ video.img }}" alt="Video Thumbnail" style="width:30px">
     <p>Download Link: <a href="{{ video.download_link }}">Click here</a></p>
   {% endfor %}
 
@@ -17,11 +62,14 @@
     <p>File Type: {{ audio.file_type }}</p>
     <p>File Extension: {{ audio.file_extension }}</p>
     <p>Filesize: {{ audio.filesize }}</p>
-    <img src="{{ audio.img }}" alt="Audio Thumbnail">
+    <img src="{{ audio.img }}" alt="Audio Thumbnail" style="width:30px">
     <p>Download Link: <a href="{{ audio.download_link }}">Click here</a></p>
   {% endfor %}
-{% elif data.error %}
-  <p>Error: {{ data.error }}</p>
-{% else %}
-  <p>No data available.</p>
-{% endif %}
+    {% elif data.error %}
+      <p>Error: {{ data.error }}</p>
+    {% else %}
+      <p>No data available.</p>
+    {% endif %}
+</div>
+</body>
+</html>
