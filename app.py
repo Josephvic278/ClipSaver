@@ -32,16 +32,25 @@ def download_yt():
         link = is_yt(link)
 
         if link:
-            yt = pytube.YouTube(link)
-            video = yt.streams.filter(progressive=True)
-            audio = yt.streams.filter(adaptive=True)
-            video = {f.itag:{"title":f.title, "file_type":f.type,'file_extension':f.subtype, 'res':f.resolution, "filesize":get_size_format(f.filesize), 'download_link':f.url} for f in video}
-            audio= {f.itag:{"title":f.title, "file_type":f.type+' (No Video)' if not f.abr else f.type+' (No Audio','bitrate':f.abr, 'file_extension':f.subtype, "filesize":get_size_format(f.filesize), 'download_link':f.url} for f in audio}
-            session['audio'] = audio
-            session['video'] =video
-            session['status']=True
-            print(session['status'])
-            return redirect(url_for('result'))
+            try:
+                yt = pytube.YouTube(link)
+                
+                video = yt.streams.filter(progressive=True)
+                audio = yt.streams.filter(adaptive=True)
+                video = {f.itag:{"title":f.title, "file_type":f.type,'file_extension':f.subtype, 'res':f.resolution, "filesize":get_size_format(f.filesize), 'download_link':f.url} for f in video}
+                audio= {f.itag:{"title":f.title, "file_type":f.type+' (No Audio)' if not f.abr else f.type+' (No Video)','bitrate':f.abr, 'file_extension':f.subtype, "filesize":get_size_format(f.filesize), 'download_link':f.url} for f in audio}
+                session['audio'] = audio
+                session['video'] =video
+                session['status']='success'
+                print(session['status'])
+                return redirect(url_for('result'))
+            except pytube.exceptions.LiveStreamError as LSerr:
+                print(LSerr)
+                session['status'] = 'error'
+                LSerr=" ".join(str(LSerr).split()[1:])
+                LSerr = 'This '+LSerr
+                session['error'] = LSerr
+                return redirect(url_for('result'))
         else:
             session['status'] =  False
             return jsonify({'message':'Invalid request'})
@@ -51,13 +60,14 @@ def download_yt():
 
 @app.route('/result')
 def result():
-    if session.get('status',None):
+    if session.get('status',None) == 'success':
         audio,video = session.get('audio', None), session.get('video', None)
         return render_template('result.html', data={'audio':audio, 'video':video})
+    elif session.get('status',None) == 'error':
+        LSerr=session.get('error')
+        return render_template('result.html', data={'error':LSerr})
     else:
         return render_template('result.html', data=None)
-        
-    
 
 
 # UTILITY FUNCTIONS
