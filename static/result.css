@@ -29,3 +29,147 @@
 .vid_length p{
     font-weight: 600;
 }
+.video_info_tab_bg{
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    display: none;
+    margin-top: 20px;
+}
+.video_info_tab{
+    background: white;
+    width: 90%;
+    border-radius: 5px;
+}
+.video_info_tab_content{
+    margin: 10px;
+}
+.video_info_tab_content p{
+    font-family: Calibri;
+    margin-top: 0;
+    font-weight: 400;
+    margin-left: 2px;
+}
+.hide{
+    display: none;
+}
+.drop_down_bg{
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+}
+.drop_down{
+    display: flex;
+}
+.drop_title{
+    background: rgb(0,255,0);
+    width: 80px;
+    height: 40px; 
+    justify-content: center;
+    border-top-left-radius: 5px;  
+    color: white;
+    border-bottom-left-radius: 5px;
+}
+.drop_title p{
+    text-align: center;
+    font-weight: 600;
+    margin-top: 10px;
+    font-family: Arial;
+}
+.drop_value{
+    background: white;
+    width: 100px;
+    border: 1px solid rgb(0,255,0);
+    height: 40px; 
+    justify-content: center;
+    border-top-right-radius: 5px;  
+    color: white;
+    border-bottom-right-radius: 0;
+}
+.drop_value p{
+    color: rgb(0,255,0);
+    text-align: left;
+    margin-left: 20px;
+    font-weight: 600;
+    margin-top: 10px;
+    font-family: Arial;
+}
+.drop_arrow{
+    margin-top: 10px;    
+}
+.drop_arrow img{
+    width: 20px;
+    margin-left: -25px;
+}
+.resbar{
+    justify-content: center;
+    align-items: center;    
+    display: flex;   
+    display: none;       
+    margin-left: 80px;
+}
+.resbar_content{
+    background: white;
+    margin: 10px;
+    margin-top: 0px;
+    width: 100px;
+    border: 1px solid rgb(0,255,0);
+    border-top: none;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.resbar_content p{
+    margin-left: 20px;
+    color: rgb(0,255,0);
+    text-align: left;
+    font-weight: 600;
+    margin-top: 10px;
+    font-family: Arial;
+}
+.show{
+    display: block;
+    display: flex;
+}
+.download_btn{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.download_btn button{
+    height: 35px;
+    width: 100%;
+    border-radius: 5px;
+    background: rgb(0,255,0);
+    color: white;
+    font-weight: 600;
+    border: none;
+}
+.download_btn a{
+    text-decoration: none;
+    width: 100%;
+}
+.mini_img{
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    margin-right: 5px;
+}
+.p_line{
+    display: flex;
+}
+#sm{
+    margin-top: 20px;
+}
+.no_audio{
+    width: 40px;
+    position: absolute;
+    margin-left: -40px;
+}
+.post_it{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
