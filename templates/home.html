@@ -9,11 +9,11 @@
 <body>
     <div class="top_bar">
         <div class="logo">
-            <img src="/static/Clip_saver_logo.png" alt=""></img>
+            <img src="/static/Clip_saver_logo.png" alt="">
         </div>
         
         <div class="menu">
-            <img src="/static/menu.png" alt=""></img>
+            <img src="/static/menu.png" alt="">
         </div>
     </div>
     
@@ -22,22 +22,46 @@
         <h1>Download <b class="yt_text">YouTube</b> videos here</h1>        
     </div>
     <form action="http://localhost:5000/download_yt" method="POST">
-      <div class="yt_link_input">
-          <input type="text" id="link" name="link" class="link_input" placeholder="Past YouTube video link">
-                    
+        <div class="yt_link_input">
+          <input type="text" id="link" name="link" class="link_input" placeholder="Paste YouTube video link">
           <br>
-      
-      </div>
-      
-      <div class="post_btn">
-              <img src="/static/paste.png" alt=""></img>
-          </div>
-      
-      <div class="submit_button">
-          <input type="submit" value="Download" class="sub_btn">
-      </div>      
-      
-    </form>
+        </div>
+        
+        <div class="post_btn">
+          <img src="/static/paste.png" alt="" id="pasteBtn">
+        </div>
+        
+        <div class="submit_button">
+            <input type="submit" value="Download" class="sub_btn">
+        </div>
+      </form>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var pasteBtn = document.getElementById('pasteBtn');
+            pasteBtn.addEventListener('click', function() {
+                navigator.clipboard.readText()
+                .then(function(text) {
+                    var linkInput = document.getElementById('link');
+                    if (isYouTubeLink(text)) {
+                        linkInput.value = text;
+                    } else {
+                        console.log('Invalid YouTube link');
+                        linkInput.value = '';
+                    }
+                })
+                .catch(function(err) {
+                    console.error('Failed to read clipboard contents: ', err);
+                });
+            });
+        });
+        
+        function isYouTubeLink(text) {
+            // Regular expression to check if the text is a valid YouTube link
+            var youtubeLinkRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\//;
+            return youtubeLinkRegex.test(text);
+        }
+    </script>
 </body>
 </html>
