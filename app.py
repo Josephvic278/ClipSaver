@@ -83,7 +83,7 @@ def result():
     else:
         return redirect(url_for('download_yt'))
 
-@app.route('/health', methods['GET'])
+@app.route('/health', methods=['GET'])
 def health():
     return 'OK',200
 
