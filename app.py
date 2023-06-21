@@ -1,3 +1,4 @@
+import json
 from flask import Flask, request, jsonify, url_for, redirect, session, render_template
 import pytube, requests, secrets
 
@@ -35,14 +36,22 @@ def download_yt():
             try:
                 yt = pytube.YouTube(link)
                 thumb = yt.thumbnail_url
+                title = yt.title
+                length = format_seconds(yt.length)
+                
                 video = yt.streams.filter(progressive=True)
                 audio = yt.streams.filter(adaptive=True)
-                video = {f.itag:{"title":f.title,'img':thumb, "file_type":f.type,'file_extension':f.subtype, 'res':f.resolution, "filesize":get_size_format(f.filesize), 'download_link':f.url} for f in video}
-                audio= {f.itag:{"title":f.title, 'img':thumb,"file_type":f.type+' (No Audio)' if not f.abr else f.type+' (No Video)','bitrate':f.abr, 'file_extension':f.subtype, "filesize":get_size_format(f.filesize), 'download_link':f.url} for f in audio}
-                session['audio'] = audio
-                session['video'] =video
+                video = {f.itag:{"title":f.title, 'id':f.itag, "file_type":f.type,'file_extension':f.subtype, 'res':f.resolution, "filesize":get_size_format(f.filesize), 'download_link':f.url} for f in video}
+                audio= {a.itag:{"title":a.title,  'id':a.itag, "file_type":a.type+' (No Audio)' if not a.abr else a.type+' (No Video)','bitrate':a.abr, 'file_extension':a.subtype, "filesize":get_size_format(a.filesize), 'download_link':a.url} for a in audio}
+                meta = {'thumb':thumb, 'length':length, 'title':title}
+                with open('static/json/meta.json','w') as f:
+                    f.write(json.dumps(meta, indent=1))
+                with open('static/json/audio.json','w') as f:
+                    f.write(json.dumps(audio, indent=1))
+                with open('static/json/video.json','w') as f:
+                    f.write(json.dumps(video,indent=1))
                 session['status']='success'
-                print(session['status'])
+    
                 return redirect(url_for('result'))
             except pytube.exceptions.LiveStreamError as LSerr:
                 print(LSerr)
@@ -56,23 +65,27 @@ def download_yt():
             return jsonify({'message':'Invalid request'})
     return render_template("home.html")
 
-@app.route('/download_yt_list')
 
 @app.route('/result')
 def result():
+    print(session.get('status'))
     if session.get('status',None) == 'success':
-        audio,video = session.get('audio', None), session.get('video', None)
-        return render_template('result.html', data={'audio':audio, 'video':video})
+        with open('static/json/audio.json') as f:
+            audio=json.loads(f.read())
+        with open('static/json/video.json') as f:
+            video=json.loads(f.read())
+        with open('static/json/meta.json') as f:
+            meta=json.loads(f.read())
+        return render_template('result.html', data={'audio':audio, 'video':video, 'meta':meta})
     elif session.get('status',None) == 'error':
         LSerr=session.get('error')
         return render_template('result.html', data={'error':LSerr})
     else:
-        return render_template('result.html', data=None)
+        return redirect(url_for('download_yt'))
 
 
 # UTILITY FUNCTIONS
 def is_yt(link):
-    thumb=f'img.youtube.com/vi/[VideoID]/maxresdefault.jpg'
     if link:
         try:
             link = requests.get(link).url
@@ -93,6 +106,19 @@ def get_size_format(number, factor=1024, suffix="B"):
             return f"{number:.2f}{unit}{suffix}"
         number /= factor
     return f"{number:.2f}Y{suffix}"
+
+def format_seconds(seconds):
+    if isinstance(seconds, int) and seconds >= 0:
+        # calculate the hours, minutes and seconds
+        hours = seconds // 3600
+        minutes = (seconds % 3600) // 60
+        seconds = (seconds % 3600) % 60
+        # format the output with leading zeros
+        return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+    else:
+        # return an error message for invalid input
+        return '00:00:00'
+
 
 
 if __name__ == '__main__':
