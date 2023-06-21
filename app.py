@@ -68,6 +68,8 @@ def download_yt():
 
 @app.route('/result')
 def result():
+    if request.method=='POST':
+        return jsonify({'message':'Error Invalid Method'})
     print(session.get('status'))
     if session.get('status',None) == 'success':
         with open('static/json/audio.json') as f:
