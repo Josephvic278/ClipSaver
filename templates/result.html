@@ -35,11 +35,11 @@
   
   <div class="top_details_bg">
       <div class="top_details">
-          <img src="{{image_dict[0]}}" alt=""></img>
+          <img src="{{ data.meta.thumb }}" alt="{{ data.meta.title }}"></img>
           <h2>{{title_dict[0]}}
           <br>
           <div class="vid_length">
-              <p>1:00</p>              
+              <p>{{ data.meta.length }}</p>              
           </div>
           </h2>
       </div>
@@ -51,7 +51,6 @@
     <p>File Type: {{ video.file_type }}</p>
     <p>File Extension: {{ video.file_extension }}</p>
     <p>Filesize: {{ video.filesize }}</p>
-    <img src="{{ video.img }}" alt="Video Thumbnail" style="width:30px">
     <p>Download Link: <a href="{{ video.download_link }}">Click here</a></p>
   {% endfor %}
 
@@ -62,7 +61,6 @@
     <p>File Type: {{ audio.file_type }}</p>
     <p>File Extension: {{ audio.file_extension }}</p>
     <p>Filesize: {{ audio.filesize }}</p>
-    <img src="{{ audio.img }}" alt="Audio Thumbnail" style="width:30px">
     <p>Download Link: <a href="{{ audio.download_link }}">Click here</a></p>
   {% endfor %}
     {% elif data.error %}
