@@ -63,7 +63,7 @@ db.sqlite3-journal
 
 # Flask stuff:
 .webassets-cache
-static/json
+./static/json/*
 # Scrapy stuff:
 .scrapy
 
