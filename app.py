@@ -1,5 +1,6 @@
 import json
-from flask import Flask, request, jsonify, url_for, redirect, session, render_template
+import os
+from flask import Flask, request, jsonify, url_for, redirect, session, render_template, send_from_directory
 import pytube, requests, secrets
 
 # from flask_migrate import Migrate
@@ -65,6 +66,10 @@ def download_yt():
             return jsonify({'message':'Invalid request'})
     return render_template("home.html")
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @app.route('/result')
 def result():
@@ -127,4 +132,4 @@ def format_seconds(seconds):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
