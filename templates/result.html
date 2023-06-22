@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page title</title>
+    <title>Download YouTube Video</title>
     <link rel="stylesheet" href="/static/home.css">
     <link rel="stylesheet" href="/static/result.css">
     <script src="/static/result.js"></script>
@@ -18,7 +18,7 @@
             <img src="/static/menu.png" alt=""></img>
         </div>
     </div>
-   
+       
    
    <div class="body_sector">
     {% if data.video or data.audio %}
@@ -31,8 +31,8 @@
       {% set _= title_dict.append(video_values.title) %}
       {% set _= image_dict.append(video_values.img) %}
   {% endfor %}
-  
-  <div class="header_text">
+    
+  <div class="header_text">      
         <h1>Download <b class="yt_text">YouTube</b> videos up to <b class="yt_text">4K</b> resolution</h1>        
     </div>
   
@@ -69,9 +69,10 @@
           {% endfor %}
       </div>      
   </div>  
-  
+   
   <input type="text" class="hide" id="vid_ids" value="{{vid_ids}}">
-  {% for video in data.video.values() %}
+  {% for video in data.video.values() %}  
+      
   <div class="video_info_tab_bg" vid-info-id="{{video.id}}" id="vid_info_bg">
     <div class="video_info_tab"> 
     <div class="video_info_tab_content">
@@ -110,7 +111,7 @@
 
 <div class="top_details_bg" id="sm">
       <div class="top_details">         
-          <img src="{{ data.meta.thumb }}" alt="{{ data.meta.title }}" class="pos_it">              
+          <img src="{{ data.meta.thumb }}" alt="{{ data.meta.title }}">                
           </img>
           
           <h2>{{title_dict[0]}}
@@ -122,15 +123,162 @@
       </div>
   </div>
   
-  <h2>Audios:</h2>
+  <div class="drop_down_bg">
+      <div class="drop_down">
+          <div class="drop_title">
+              <p>Video (No Audio)</p>
+          </div>
+          <div class="drop_value">
+              <p id="vid_value2"></p>
+          </div>
+          <div class="drop_arrow" onclick="open_resbar2()">
+              <img src="/static/downarrow.png" alt=""></img>
+          </div>       
+      </div>      
+  </div>
+  
+   {% set ids2 = [] %}
+   {% for audid in data.audio.values() %}
+      {% set _= ids2.append(audid.id) %}           
+   {% endfor %} 
+     <div class="resbar2" id="resbar2">
+      <div class="resbar_content2">
+          {% for aud_id in data.audio.values() %}
+          {% if aud_id.file_type == "video (No Audio)" %}          
+          <p onclick="no_aud_func({{aud_id.id}},{{ids2}})"> {{aud_id.file_extension}} : {{aud_id.filesize}}</p> 
+                                                
+          {% endif %}                    
+          {% endfor %}                                                              
+          <script>          document.getElementById("vid_value2").textContent="mp4"          
+          </script>       
+      </div>      
+  </div>  
   {% for audio in data.audio.values() %}
-    <h3>{{ audio.title }}</h3>
-    <p>Bitrate: {{ audio.bitrate }}</p>
-    <p>File Type: {{ audio.file_type }}</p>
-    <p>File Extension: {{ audio.file_extension }}</p>
-    <p>Filesize: {{ audio.filesize }}</p>
-    <p>Download Link: <a href="{{ audio.download_link }}">Download</a></p>
+  
+  {% if audio.file_type == "video (No Audio)" %}
+  <div class="video_info_tab_bg" no-aud-id="{{audio.id}}" id="vid_info_bg">
+  <div class="video_info_tab"> 
+  <div class="video_info_tab_content">
+      
+          <div class="p_line">
+        <img src="/static/res_icon.png" alt="" class="mini_img"></img>
+        <p>Bitrate: {{ audio.bitrate }}</p>
+    </div> 
+    
+    <div class="p_line">
+        <img src="/static/vid_icon.png" alt="" class="mini_img"></img>
+        <p>File Type: {{ audio.file_type }}</p>
+    </div>   
+    
+    <div class="p_line">
+        <img src="/static/file_icon.png" alt="" class="mini_img"></img>
+        <p>File Extension: {{ audio.file_extension }}</p>   
+    </div>
+    
+    <div class="p_line">
+        <img src="/static/drive_icon.png" alt="" class="mini_img"></img>
+        <p>Filesize: {{ audio.filesize }}</p>
+    </div>
+        
+    <div class="download_btn">
+                    
+            <a href="{{ audio.download_link }}">
+                <button>Download</button>
+            </a>                                           
+    </div>                               
+        
+  </div>
+  </div>
+  </div>
+  {% endif %}
   {% endfor %}
+  
+ <div class="top_details_bg" id="sm">
+      <div class="top_details">         
+          <img src="{{ data.meta.thumb }}" alt="{{ data.meta.title }}">                
+          </img>
+          
+          <h2>{{title_dict[0]}}
+          <br>
+          <div class="vid_length">
+              <p>{{ data.meta.length }}</p>              
+          </div>
+          </h2>
+      </div>
+  </div>
+  
+  <div class="drop_down_bg">
+      <div class="drop_down">
+          <div class="drop_title">
+              <p>Audio</p>
+          </div>
+          <div class="drop_value">
+              <p id="vid_value3"></p>
+          </div>
+          <div class="drop_arrow" onclick="open_resbar3()">
+              <img src="/static/downarrow.png" alt=""></img>
+          </div>       
+      </div>      
+  </div> 
+  
+  {% set ids3 = [] %}
+   {% for audio_id in data.audio.values() %}
+      {% if audio_id.file_type== "audio (No Video)" %}
+          {% set _= ids3.append(audio_id.id) %}
+      {% endif %}         
+   {% endfor %} 
+     <div class="resbar" id="resbar3">
+      <div class="resbar_content">
+          {% for aud_id in data.audio.values() %}
+          {% if aud_id.file_type == "audio (No Video)" %}          
+          <p onclick="aud_func({{aud_id.id}},{{ids3}})"> {{aud_id.file_extension}} : {{aud_id.filesize}}</p> 
+                                                
+          {% endif %}                    
+          {% endfor %}                                                              
+          <script>          document.getElementById("vid_value3").textContent="mp3"          
+          </script>       
+      </div>      
+  </div>  
+  
+ {% for audio in data.audio.values() %}
+  
+  {% if audio.file_type == "audio (No Video)" %}      
+  <div class="video_info_tab_bg" aud-id="{{audio.id}}" id="vid_info_bg" >
+  <div class="video_info_tab"> 
+  <div class="video_info_tab_content">
+    
+    <div class="p_line">
+        <img src="/static/res_icon.png" alt="" class="mini_img"></img>
+        <p>Bitrate: {{ audio.bitrate }}</p>  
+    </div> 
+    
+    <div class="p_line">
+        <img src="/static/vid_icon.png" alt="" class="mini_img"></img>
+        <p>File Type: {{ audio.file_type }}</p>
+    </div>   
+    
+    <div class="p_line">
+        <img src="/static/file_icon.png" alt="" class="mini_img"></img>
+        <p>File Extension: {{ audio.file_extension }}</p>   
+    </div>           
+    
+    <div class="p_line">
+        <img src="/static/drive_icon.png" alt="" class="mini_img"></img>
+        <p>Filesize: {{ audio.filesize }}</p>
+    </div>
+        
+     <div class="download_btn">                                
+       <a href="{{ audio.download_link }}">
+           <button>Download</button>
+       </a>                                                                                
+    </div>             
+    
+  </div>
+  </div>
+  </div>
+  {% endif %}  
+  {% endfor %}
+  
     {% elif data.error %}
       <p>Error: {{ data.error }}</p>
     {% else %}

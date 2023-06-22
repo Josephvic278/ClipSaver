@@ -96,3 +96,11 @@ body {
 .menu img{
     width: 50px;
 }
+.yt_logo{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+.yt_logo img{
+    width: 100px;
+}
