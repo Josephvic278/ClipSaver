@@ -56,8 +56,7 @@
 }
 .drop_down_bg{
     justify-content: center;
-    align-items: center;
-    width: 100%;
+    align-items: center;        
     display: flex;
     margin-top: 20px;
 }
@@ -66,16 +65,17 @@
 }
 .drop_title{
     background: rgb(0,255,0);
-    width: 80px;
+    width: px;
     height: 40px; 
     justify-content: center;
     border-top-left-radius: 5px;  
-    color: white;
-    border-bottom-left-radius: 5px;
+    color: white;    
 }
 .drop_title p{
     text-align: center;
     font-weight: 600;
+    margin-left: 10px;
+    margin-right: 10px;
     margin-top: 10px;
     font-family: Arial;
 }
@@ -108,20 +108,45 @@
     justify-content: center;
     align-items: center;    
     display: flex;   
-    display: none;       
-    margin-left: 80px;
+    display: none; 
+    width: 120px;    
+    position: absolute;
+    z-index: 1;
+    margin-left: 177px;
+    float: right;
+}
+.resbar2{
+    justify-content: center;
+    align-items: center;    
+    display: flex;   
+    display: none; 
+    width: 100%;    
+    position: absolute;
+    z-index: 1;     
 }
 .resbar_content{
     background: white;
     margin: 10px;
     margin-top: 0px;
-    width: 100px;
+    float: right;
+    width: 150px;    
     border: 1px solid rgb(0,255,0);
     border-top: none;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
 }
-.resbar_content p{
+.resbar_content2{
+    background: white;
+    margin: 10px;
+    margin-top: 0px;  
+    margin-left: 12px;
+    width: 241px;    
+    border: 1px solid rgb(0,255,0);
+    border-top: none;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.resbar_content p, .resbar_content2 p{
     margin-left: 20px;
     color: rgb(0,255,0);
     text-align: left;
@@ -167,9 +192,4 @@
     width: 40px;
     position: absolute;
     margin-left: -40px;
-}
-.post_it{
-    justify-content: center;
-    align-items: center;
-    display: flex;
 }
