@@ -71,8 +71,8 @@
   </div>  
    
   <input type="text" class="hide" id="vid_ids" value="{{vid_ids}}">
-  {% for video in data.video.values() %}  
-      
+  {% for video in data.video.values() %}    
+  
   <div class="video_info_tab_bg" vid-info-id="{{video.id}}" id="vid_info_bg">
     <div class="video_info_tab"> 
     <div class="video_info_tab_content">
@@ -107,6 +107,17 @@
     </div>      
     </div>   
     </div>
+    
+    {% if video.res == "720p" %} 
+    <input type="text" value="{{video.id}}" id="res720" class="hide">
+      <script>
+          var res720 = document.getElementById("res720")
+          var intres = parseInt(res720.value)
+          var def_res = document.querySelector(`div[vid-info-id="${intres}"]`)
+          def_res.style.display="block"
+          def_res.style.display="flex"
+      </script>
+  {% endif %}
   {% endfor %}
 
 <div class="top_details_bg" id="sm">
@@ -227,7 +238,7 @@
           {% set _= ids3.append(audio_id.id) %}
       {% endif %}         
    {% endfor %} 
-     <div class="resbar" id="resbar3">
+     <div class="resbar3" id="resbar3">
       <div class="resbar_content">
           {% for aud_id in data.audio.values() %}
           {% if aud_id.file_type == "audio (No Video)" %}          

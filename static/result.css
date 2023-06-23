@@ -109,13 +109,21 @@
     align-items: center;    
     display: flex;   
     display: none; 
-    width: 120px;    
+    width: 100%;    
     position: absolute;
-    z-index: 1;
-    margin-left: 177px;
+    z-index: 1;    
     float: right;
 }
 .resbar2{
+    justify-content: center;
+    align-items: center;    
+    display: flex;   
+    display: none; 
+    width: 100%;    
+    position: absolute;
+    z-index: 2;     
+}
+.resbar3{
     justify-content: center;
     align-items: center;    
     display: flex;   
@@ -129,7 +137,7 @@
     margin: 10px;
     margin-top: 0px;
     float: right;
-    width: 150px;    
+    width: 162px;    
     border: 1px solid rgb(0,255,0);
     border-top: none;
     border-bottom-right-radius: 5px;
@@ -139,15 +147,27 @@
     background: white;
     margin: 10px;
     margin-top: 0px;  
-    margin-left: 12px;
-    width: 241px;    
+    margin-left: 10px;
+    width: 243px;    
+    border: 1px solid rgb(0,255,0);
+    border-top: none;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.resbar_content3{
+    background: white;
+    margin: 10px;
+    margin-top: 0px;  
+    margin-left: 10px;
+    width: 350px;    
     border: 1px solid rgb(0,255,0);
     border-top: none;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
 }
 .resbar_content p, .resbar_content2 p{
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
     color: rgb(0,255,0);
     text-align: left;
     font-weight: 600;
