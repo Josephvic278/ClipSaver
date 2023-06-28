@@ -149,6 +149,7 @@
   </div>
   
    {% set ids2 = [] %}
+   {% set ids2_res = [] %}
    {% for audid in data.audio.values() %}
       {% set _= ids2.append(audid.id) %}           
    {% endfor %} 
@@ -165,7 +166,7 @@
       </div>      
   </div>  
   {% for audio in data.audio.values() %}
-  
+  {% set _= ids2_res.append(audio.id) %}
   {% if audio.file_type == "video (No Audio)" %}
   <div class="video_info_tab_bg" no-aud-id="{{audio.id}}" id="vid_info_bg">
   <div class="video_info_tab"> 
@@ -203,6 +204,17 @@
   </div>
   {% endif %}
   {% endfor %}
+  
+  {% if ids2_res[0] != "" %}
+  <input type="text" value="{{ids2_res[0]}}" id="id_res" class="hide">
+     <script>
+        var aud_res = document.getElementById("id_res") 
+        var int_val = parseInt(aud_res.value)        
+        var def_bar = document.querySelector(`div[no-aud-id="${int_val}"]`)
+        def_bar.style.display="block"
+        def_bar.style.display="flex"
+     </script>
+  {% endif %}
   
  <div class="top_details_bg" id="sm">
       <div class="top_details">         
@@ -250,10 +262,10 @@
           </script>       
       </div>      
   </div>  
-  
+ {% set ids3_res = [] %}
  {% for audio in data.audio.values() %}
-  
-  {% if audio.file_type == "audio (No Video)" %}      
+  {% if audio.file_type == "audio (No Video)" %}  
+  {% set _= ids3_res.append(audio.id) %}    
   <div class="video_info_tab_bg" aud-id="{{audio.id}}" id="vid_info_bg" >
   <div class="video_info_tab"> 
   <div class="video_info_tab_content">
@@ -290,6 +302,17 @@
   {% endif %}  
   {% endfor %}
   
+    {% if ids3_res[0] != "" %}
+  <input type="text" value="{{ids3_res[0]}}" id="id1_res" class="hide">
+     <script>         
+        var aud_res = document.getElementById("id1_res")        
+        var int_val = parseInt(aud_res.value)
+        var def_bar = document.querySelector(`div[aud-id="${int_val}"]`)
+        def_bar.style.display="block"
+        def_bar.style.display="flex"
+     </script>
+  {% endif %}
+  
     {% elif data.error %}
       <p>Error: {{ data.error }}</p>
     {% else %}
@@ -298,5 +321,39 @@
 
 </div>
 
+<div class="bottom">
+    <div class="bottom_link_bg">
+        <li>
+        <a href="">Instagram Videos</a>       
+        </li>  
+        <li>
+        <a href="">YouTube Videos</a>        
+        </li>      
+        <li>
+        <a href="">Facebook Videos</a>        
+        </li>
+        <li>
+         <a href="">Tiktok Videos</a>   
+        </li>
+    </div>
+    
+    <div class="bottom_link_bg">
+        <li>
+        <a href="">Instagram Reels</a>       
+        </li>  
+        <li>
+        <a href="">Snapchat Videos</a>        
+        </li>      
+        <li>
+        <a href="">Facebook Reels</a>        
+        </li>
+        <li>
+         <a href="">More...</a>   
+        </li>
+    </div>
+</div>
+    <div class="end_title">
+        <p>All rights reserved ClipSaver 2023</p>
+    </div>
 </body>
 </html>
