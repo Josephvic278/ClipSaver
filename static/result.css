@@ -109,13 +109,21 @@
     align-items: center;    
     display: flex;   
     display: none; 
-    width: 120px;    
+    width: 100%;    
     position: absolute;
-    z-index: 1;
-    margin-left: 177px;
+    z-index: 1;    
     float: right;
 }
 .resbar2{
+    justify-content: center;
+    align-items: center;    
+    display: flex;   
+    display: none; 
+    width: 100%;    
+    position: absolute;
+    z-index: 2;     
+}
+.resbar3{
     justify-content: center;
     align-items: center;    
     display: flex;   
@@ -129,7 +137,7 @@
     margin: 10px;
     margin-top: 0px;
     float: right;
-    width: 150px;    
+    width: 162px;    
     border: 1px solid rgb(0,255,0);
     border-top: none;
     border-bottom-right-radius: 5px;
@@ -139,15 +147,27 @@
     background: white;
     margin: 10px;
     margin-top: 0px;  
-    margin-left: 12px;
-    width: 241px;    
+    margin-left: 10px;
+    width: 243px;    
+    border: 1px solid rgb(0,255,0);
+    border-top: none;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.resbar_content3{
+    background: white;
+    margin: 10px;
+    margin-top: 0px;  
+    margin-left: 10px;
+    width: 350px;    
     border: 1px solid rgb(0,255,0);
     border-top: none;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
 }
 .resbar_content p, .resbar_content2 p{
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
     color: rgb(0,255,0);
     text-align: left;
     font-weight: 600;
@@ -192,4 +212,35 @@
     width: 40px;
     position: absolute;
     margin-left: -40px;
+}
+.bottom{
+    background: white;
+    width: 100%;
+    margin-top: 25px;
+    height: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.bottom_link_bg{  
+    background: none; 
+}
+.bottom_link_bg li{
+    list-style: none;
+    margin: 20px;
+}
+.bottom_link_bg li a{
+    text-align: justify;
+    text-decoration: none;
+    color: rgb(0,255,0);
+    font-family: Arial;
+}
+.end_title{
+    text-align: center;
+}
+.end_title p{
+    text-align: center;
+    text-decoration: none;
+    color: rgb(0,255,0);
+    font-family: Arial;
 }

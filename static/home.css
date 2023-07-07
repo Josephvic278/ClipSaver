@@ -25,11 +25,11 @@ body {
     background: white;
 }
 .logo{
-    margin: 5px;
+    margin: 7px;
     float: left;    
 }
 .logo img{
-    width: 150px;
+    width: 120px;
 }
 .yt_link_input{
     justify-content: center;
@@ -91,16 +91,18 @@ body {
 }
 .menu{
     float: right;
-    margin: 8px;
+    margin: 14px;
 }
 .menu img{
-    width: 50px;
+    width: 40px;
 }
 .yt_logo{
+    margin: 0;
     justify-content: center;
     display: flex;
     align-items: center;
 }
 .yt_logo img{
     width: 100px;
+    margin: 0;
 }
